@@ -8,10 +8,15 @@ If you have any suggestions for improvements then feel free to leave a request o
 
 h2. Install
 
-* Download and unzip Bort
-* Edit the database.yml and the settings.yml files
-* Changed the default password in the bort migration
-* Edit the REST_AUTH_SITE_KEY in each of the environment files
+* Fork Bort at GitHub.com
+* git clone git@github.com:[YOUR GITHUB ID]/bort.git
+* Edit the database.yml file if you don't want to use sqllite.
+* Edit the settings.yml file. Change the site name, urls, and email addresses.
+* Change the default password in db/migrate/20080929171348_bort_migration.rb. 
+* Change the REST_AUTH_SITE_KEY in each of the environment files
+** Change a few of the characters to make them different.
+* Change the secret key in the config/environment.rb file.
+** Change a few of the characters to make them different.
 * Rake db:migrate
 * Have a brew and celebrate
 
