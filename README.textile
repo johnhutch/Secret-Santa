@@ -1,22 +1,15 @@
-!http://clients.fudgestudios.com/chester.jpg!
-
 h1. Bort
 
-Bort is a base Rails 2.3.4 application that makes creating new projects easier and faster. Bort is developed and maintained by "Fudge Studios":http://www.fudgestudios.com, "Jim Neath":http://jimneath.org and "Matt Hall":http://matthall.wordpress.com
+Bort is a base Rails 2.3.4 application that makes creating new projects easier and faster.
 
 If you have any suggestions for improvements then feel free to leave a request on "User Voice":http://bort.uservoice.com
 
 h2. Install
 
-* Fork Bort at GitHub.com
-* git clone git@github.com:[YOUR GITHUB ID]/bort.git
-* Edit the database.yml file if you don't want to use sqllite.
-* Edit the settings.yml file. Change the site name, urls, and email addresses.
-* Change the default password in db/migrate/20080929171348_bort_migration.rb. 
-* Change the REST_AUTH_SITE_KEY in each of the environment files
-** Change a few of the characters to make them different.
-* Change the secret key in the config/environment.rb file.
-** Change a few of the characters to make them different.
+* Download and unzip Bort
+* Edit the database.yml and the settings.yml files
+* Changed the default password in the bort migration
+* Edit the REST_AUTH_SITE_KEY in each of the environment files
 * Rake db:migrate
 * Have a brew and celebrate
 
@@ -94,7 +87,3 @@ h2. Misc
 * rails.png is already deleted
 * a few changes have been made to the default views
 * a default css file with blank selectors for common rails elements
-
-h2. Credits
-
-Bort put together by people at "Fudge":http://www.fudgestudios.com/ 
