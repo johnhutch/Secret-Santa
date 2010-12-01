@@ -1,81 +1,39 @@
-#############################################################
-#	Application
-#############################################################
+set :user, 'hutch'  # Your dreamhost account's username
+set :domain, 'secretsanta.johnhutch.com'  # Dreamhost servername where your account is located 
+set :project, 'secretsanta'  # Your application as its called in the repository
+set :application, 'secretsanta'  # Your app's location (domain or sub-domain name as setup in panel)
+set :applicationdir, "/home/#{user}/#{application}"  # The standard Dreamhost setup
 
-set :application, "bort"
-set :deploy_to, "/path/to/deploy"
-
-#############################################################
-#	Settings
-#############################################################
-
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
-set :use_sudo, true
-set :scm_verbose, true
-set :rails_env, "production" 
-
-#############################################################
-#	Servers
-#############################################################
-
-set :user, "bort"
-set :domain, "www.example.com"
-server domain, :app, :web
-role :db, domain, :primary => true
-
-#############################################################
-#	Git
-#############################################################
-
-set :scm, :git
-set :branch, "master"
-set :scm_user, 'bort'
-set :scm_passphrase, "PASSWORD"
-set :repository, "git@github.com:FudgeStudios/bort.git"
+# version control config
+set :scm, 'git'
+set :repository,  "git@github.com:johnhutch/Secret-Santa.git "
 set :deploy_via, :remote_cache
+set :git_enable_submodules, 1 # if you have vendored rails
+set :branch, 'master'
+set :git_shallow_clone, 1
+set :scm_verbose, true
 
-#############################################################
-#	Passenger
-#############################################################
+# roles (servers)
+role :web, domain
+role :app, domain
+role :db,  domain, :primary => true
 
-namespace :deploy do
-  desc "Create the database yaml file"
-  task :after_update_code do
-    db_config = <<-EOF
-    production:    
-      adapter: mysql
-      encoding: utf8
-      username: root
-      password: 
-      database: bort_production
-      host: localhost
-    EOF
-    
-    put db_config, "#{release_path}/config/database.yml"
-    
-    #########################################################
-    # Uncomment the following to symlink an uploads directory.
-    # Just change the paths to whatever you need.
-    #########################################################
-    
-    # desc "Symlink the upload directories"
-    # task :before_symlink do
-    #   run "mkdir -p #{shared_path}/uploads"
-    #   run "ln -s #{shared_path}/uploads #{release_path}/public/uploads"
-    # end
-  
+# deploy config
+set :deploy_to, applicationdir
+set :deploy_via, :export
+
+# additional settings
+set :chmod755, "app config db lib public vendor script script/* public/disp*"
+set :use_sudo, false
+
+desc "restart override"
+task :restart, :roles => :app do  
+  run "killall -9 ruby"
+  run "touch #{current_path}/tmp/restart.txt"
+end
+
+task :after_symlink do
+  %w[database.yml].each do |c|
+    run "ln -nsf #{shared_path}/system/config/#{c} #{current_path}/config/#{c}"
   end
-    
-  # Restart passenger on deploy
-  desc "Restarting mod_rails with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
-  end
-  
-  [:start, :stop].each do |t|
-    desc "#{t} task is a no-op with mod_rails"
-    task t, :roles => :app do ; end
-  end
-  
 end

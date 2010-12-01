@@ -1,8 +1,43 @@
 class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :create
+  before_filter :login_required, :only => [:index, :edit, :update, :profile]
   
   def new
     @user = User.new
+  end
+  
+  def show
+    @user = User.find(params[:id])
+  end
+  
+  def index
+    @users = User.find(:all)
+  end
+  
+  def edit
+    @user = User.find(current_user)
+  end
+  
+  def update
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        flash[:notice] = 'Post was successfully updated.'
+        format.html { redirect_to(@user) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  def profile
+    @users = User.find(current_user)
+    respond_to do |format|
+        format.html { render :template => "users/show" }
+    end
   end
  
   def create
@@ -17,6 +52,7 @@ class UsersController < ApplicationController
         end
       end
     else
+      params[:user][:login] = params[:user][:email]
       create_new_user(params[:user])
     end
   end

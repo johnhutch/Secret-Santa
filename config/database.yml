@@ -1,9 +1,10 @@
 development:
-  # Sqlite Settings
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  encoding: utf8
+  database: secret_santa #following rails db naming convention
+  username: root
+  password: 
+  host: localhost
 
   # Mysql Settings
   # adapter: mysql
@@ -44,11 +45,14 @@ staging:
   # pool: 5
   
 production:
-  # Sqlite Settings
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+    adapter: mysql
+    encoding: utf8
+    database: secret_santa_production #following rails db naming convention
+    username: hutch
+    password: striker7
+    host: db.johnhutch.com
+    port: 3306  #not necessary since its the standard mysql port
+
 
   # Mysql Settings
   # adapter: mysql

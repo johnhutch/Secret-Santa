@@ -1,33 +1,56 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-	<head>
-		<title><%= @page_title || APP_CONFIG[:site_name] %></title>
-		<meta http-equiv="content-type" content="text/xhtml; charset=utf-8" />
-		<meta http-equiv="imagetoolbar" content="no" />
-		<meta name="distribution" content="all" />
-		<meta name="robots" content="all" />	
-		<meta name="resource-type" content="document" />
-		<meta name="MSSmartTagsPreventParsing" content="true" />
-		<%= stylesheet_link_tag 'base' %>
-		<%= javascript_include_tag :defaults %>
-	</head>
-	<body>
-		<div id="container">
-			<div id="header">
-				<ul>
-					<% if logged_in? %>
-					<li><%= link_to 'Logout', logout_path %></li>
-					<% else %>
-					<li><%= link_to 'Login', login_path %></li>
-					<li><%= link_to 'Signup', signup_path %></li>
-					<% end %>
-				</ul>
-			</div>
-			<div id="content">
-				<%= flash_messages %>
-				<%= yield :layout %>
-			</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title><%= @page_title ? @page_title + " | " : "" %><%= APP_CONFIG[:site_name] %></title>
+  <meta charset="utf-8" /> 
+  <meta name="author" content="John Hutchinson" />
+  <meta name="description" content="" />
+  <meta name="DC.creator" content="John Hutchinson - http://www.johnhutch.com" />
+  <meta name="DC.subject" content="Standards-based web design" />
+  <meta name="viewport" content="width=960" />
+  <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+		
+	<link href="/stylesheets/blueprint/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<link href="/stylesheets/blueprint/print.css" media="print" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/blueprint/ie.css" />
+	<![endif]-->
+	<link rel="stylesheet" href="/stylesheets/theme.css" type="text/css" />
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.jqEasyCharCounter.min.js"></script>
+	
+	<link href='http://fonts.googleapis.com/css?family=Allerta+Stencil&subset=latin' rel='stylesheet' type='text/css'>
+
+</head>
+<body class="<%= @controller.controller_name %>-<%= @controller.action_name %>">
+	<header class="clearfix">
+		<div class="container">
+			<h1 id="logo"><a href="/">Secret Santa</a></h1>
 		</div>
-	</body>
+	</header>
+		
+	<nav class="clearfix">
+		<ul class="container">
+				<li><%= link_to 'The Participants', users_path %></li>
+			<% if logged_in? %>
+				<li class="user profile"><%= link_to 'My Profile', user_path(current_user) %></li>
+				<li class="user"><%= link_to 'Logout', logout_path %></li>
+			<% else %>
+				<li class="user"><%= link_to 'Login', login_path %></li>
+				<li class="user"><%= link_to 'Signup', signup_path %></li>
+			<% end %>
+		</ul>
+	</nav>
+	
+	<%= flash_messages %>
+	
+	<section id="content">
+		<div class="container">
+			<%= yield :layout %>
+		</div>
+	</section>
+</body>
 </html>

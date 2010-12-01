@@ -14,7 +14,22 @@ config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = true
+
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.default_charset = "utf-8"
+
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  :enable_starttls_auto => true,
+  :address => "smtp.gmail.com",
+  :port => "587",
+  :domain => "localhost",
+  :authentication => :plain,
+  :user_name => "johnhutch@gmail.com",
+  :password => 'r#n1n39'
+}
+
 
 # Restful Authentication
 REST_AUTH_SITE_KEY = 'f5955d1c74d3502f8a3de8562e5bf21fe3fec887'

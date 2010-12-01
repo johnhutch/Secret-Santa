@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   # Validations
   validates_presence_of :login, :if => :not_using_openid?
-  validates_length_of :login, :within => 3..40, :if => :not_using_openid?
+  validates_length_of :login, :within => 3..60, :if => :not_using_openid?
   validates_uniqueness_of :login, :case_sensitive => false, :if => :not_using_openid?
   validates_format_of :login, :with => RE_LOGIN_OK, :message => MSG_LOGIN_BAD, :if => :not_using_openid?
   validates_format_of :name, :with => RE_NAME_OK, :message => MSG_NAME_BAD, :allow_nil => true
@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD, :if => :not_using_openid?
   validates_uniqueness_of :identity_url, :unless => :not_using_openid?
   validate :normalize_identity_url
+  validates_presence_of :bio
+  validates_length_of :bio, :within => 1..440
+  
+  acts_as_textiled :bio
   
   # Relationships
   has_and_belongs_to_many :roles
@@ -26,7 +30,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url
+  attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url, :bio, :address1, :address2, :city, :state, :zip
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)

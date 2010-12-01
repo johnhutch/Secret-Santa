@@ -1,0 +1,8 @@
+<%= title @user.name + "'s profile", :h2 %>
+
+<div id="gravatar"><%= gravatar_for @user, :size => '' %></div>
+<div id="bio"><h3>What <%= @user.name %> thinks you ought to know about them:</h3>
+		<%= @user.bio %></div>
+<% if @user == current_user %>
+	<div id="edit_profile"><%= link_to 'Edit Your Profile', edit_user_path(current_user) %></div>
+<% end %>

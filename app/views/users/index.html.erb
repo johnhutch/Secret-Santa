@@ -1,0 +1,7 @@
+<%= title "The Participants (so far)", :h2 %>
+
+<ul id="participants">
+<% for user in @users do %>
+	<li class="<%= cycle('even', 'odd') %>"><a href="/users/<%= user.id %>"><%= gravatar_for user, :size => "40" %> <%= user.name %></a></li>
+<% end %>
+</ul>

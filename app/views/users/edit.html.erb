@@ -1,0 +1,32 @@
+<%= title "Edit Your Profile", :h2 %>
+
+<% form_for @user do |f| %>
+	<%= f.error_messages %>
+	<fieldset>
+		<legend>Login Info</legend>
+				<%= f.label :email, 'Email Address', :class => "email" %>
+				<div class="uneditable"><%= @user.email %></div>
+
+				<%= f.label :password, 'New Password', :class => "password" %>
+				<%= f.password_field :password, :class => "password" %>
+
+				<%= f.label :password_confirmation, 'Confirm New Password', :class => "password_confirmation" %>
+				<%= f.password_field :password_confirmation, :class => "password_confirmation" %>				
+	</fieldset>
+	<fieldset>
+		<legend>About You</legend>
+				<%= f.label :name, 'Your Name', :class => "name" %>
+				<%= f.text_field :name, :class => "name" %>
+
+				<%= f.label :bio, 'Tell us a bit about yourself, your likes and dislikes. Something that might point someone in the right direction for a gift.', :class => "bio" %>
+				<%= f.text_area :bio, :class => "bio" %>
+				<script>$('textarea.bio').jqEasyCounter({'maxChars': 440, maxCharsWarning: 420 });</script>
+				
+				
+				<p><small>Want to include a picture? Head to <a href="http://www.gravatar.com">Gravatar.com</a> and create your global avatar for the email address you used here.</small></p>
+	</fieldset>
+	
+	<div class="buttons">
+		<%= submit_tag 'Update my Profile', :class => 'submit' %>
+	</div>
+<% end %>

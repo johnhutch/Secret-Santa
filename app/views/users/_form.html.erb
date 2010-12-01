@@ -1,0 +1,42 @@
+<fieldset>
+	<legend>Login Info</legend>
+			<%= f.label :email, 'Email Address', :class => "email" %>
+			<%= f.text_field :email, :class => "email" %>
+			
+			<%= f.label :password, 'Password', :class => "password" %>
+			<%= f.password_field :password, :class => "password" %>
+			
+			<%= f.label :password_confirmation, 'Confirm Password', :class => "password_confirmation" %>
+			<%= f.password_field :password_confirmation, :class => "password_confirmation" %>				
+</fieldset>
+<fieldset>
+	<legend>About You</legend>
+			<%= f.label :name, 'Your Name', :class => "name" %>
+			<%= f.text_field :name, :class => "name" %>
+			
+			<%= f.label :bio, 'Tell us a bit about yourself, your likes and dislikes. Something that might point someone in the right direction for a gift.', :class => "bio" %>
+			<%= f.text_area :bio, :class => "bio" %>
+			<script>$('textarea.bio').jqEasyCounter({'maxChars': 440, maxCharsWarning: 420 });</script>
+</fieldset>
+
+
+<!-- 
+<fieldset>
+		<legend>Your Address</legend>
+		<p>This will only be visible if you or your gifter can't make the party. This way, they can still mail you your gift. It is <em>not</em> required.</p>
+		<%#= f.label :address1, 'Address 1', :class => "address1" %>
+		<%#= f.text_field :address1, :class => "address1" %>
+		
+		<%#= f.label :address2, 'Address 2 (apt#, etc)', :class => "address2" %>
+		<%#= f.text_field :address2, :class => "address2" %>
+		
+		<%#= f.label :city, 'City', :class => "city" %>
+		<%#= f.text_field :city, :class => "city" %>
+		
+		<%#= f.label :state, 'State', :class => "state" %>
+		<%#= f.text_field :state, :class => "state" %>
+		
+		<%#= f.label :zip, 'Zip Code', :class => "zip" %>
+		<%#= f.text_field :zip, :class => "zip" %>
+</fieldset>
+-->

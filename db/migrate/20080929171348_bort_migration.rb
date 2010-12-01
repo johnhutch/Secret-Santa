@@ -62,11 +62,13 @@ class BortMigration < ActiveRecord::Migration
     
     # Create admin role
     admin_role = Role.create(:name => 'admin')
+    participant_role = Role.create(:name => 'participant')
     
     # Create default admin user
     user = User.create do |u|
-      u.login = 'admin'
+      u.login = 'johnhutch@gmail.com'
       u.password = u.password_confirmation = 'admin'
+      u.name = 'Hutch'
       u.email = APP_CONFIG[:admin_email]
     end
     
