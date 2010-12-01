@@ -7,11 +7,11 @@ test:
   <<: *non_production_settings
 
 staging:
-  site_url: http://secretsanta_staging.johnhutch.com
+  site_url: http://santa_staging.johnhutch.com
   site_name: Secret Santa
   admin_email: johnhutch@gmail.com
   
 production:
-  site_url: http://secretsanta.johnhutch.com
+  site_url: http://santa.johnhutch.com
   site_name: Secret Santa
   admin_email: johnhutch@gmail.com
